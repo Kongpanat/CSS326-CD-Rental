@@ -78,6 +78,13 @@
                                         <input type="password" class="form-control" id="password2" name="password2"
                                             placeholder="Confirm Password">
                                     </div>
+                                    <div class="col-md-12 form-input">
+                                        <select class="form-control" name='acctype'>
+                                            <option value="" disabled selected>Select account type</option>
+                                            <option value="customer">Customer</option>
+                                            <option value="admin">Admin</option>
+                                        </select>
+                                    </div>
                                     <div class="col-md-12 form-btn text-center">
                                         <input class="btn btn-block btn-secondary btn-red" type="submit" name="signup" value="SIGNUP">
                                     </div>

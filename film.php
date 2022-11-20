@@ -1,6 +1,9 @@
 <?php require_once('connect.php'); 
 	session_start();
-	$user_id = $_SESSION['user_id'];
+	//$user_id = $_SESSION['user_id'];
+	if(isset($_SESSION['admin_id'])){
+		$admin_id = $_SESSION['admin_id'];
+	}
 	if(isset($_GET['title'])){
 		$title=$_GET['title'];
 		//echo $title;
@@ -77,7 +80,7 @@
                         <h1 class="display-2 mb-4">Film Detail</h1><br>
                     </div>
                     <!-- Detail -->
-					<form method="post" name="sub" action="">
+					<form method="post" action="filmbackend.php">
 						<div class="row">
 							<!-- film Content Holder -->
 							<div class="col-md-8 offset-md-2 mt-4">
@@ -85,6 +88,7 @@
 								$select= mysqli_query($mysqli, "SELECT * FROM film, film_genre WHERE film.title='$title' AND film.film_id=film_genre.film_id")or die('query faied');
 								if(mysqli_num_rows($select)>0){
 									$fetch = mysqli_fetch_assoc($select);
+									$film_id=$fetch['film_id'];
 								}
 							?>
 								<p><strong>Film Title: <?php echo $fetch['title']?> </strong></p>
@@ -92,7 +96,7 @@
 								<p><strong>Genre: <?php echo $fetch['genre_name']?> </strong></p>
 								<p><strong>Length: <?php echo $fetch['length']?> mins</strong></p>
 								<p><strong>Rating: <?php echo $fetch['rating']?> stars</strong></p>
-								<p><strong>Rental Rate: <?php echo $fetch['rental_rate']?> $/30days</strong></p>
+								<p><strong>Rental Rate: <?php echo $fetch['rental_rate']?> $/ days</strong></p>
 								<!--<p>Consectetur adipisicing elit. Sint, corrupti deleniti, rem mollitia quam cum
 									quo, animi
 									ipsa praesentium officiis ducimus! Modi aperiam, nulla ipsum, totam natus
@@ -112,13 +116,18 @@
 											<?php
 												$q="SELECT * FROM film WHERE film.title='$title' ";
 												$result=$mysqli->query($q);
+												$sel = mysqli_query($mysqli, "SELECT * FROM film WHERE film.title='$title'") or die('query failed');
+												if(mysqli_num_rows($sel)>0){
+													$row = mysqli_fetch_assoc($sel);
+													$_SESSION['film_id']=$row['film_id'];
+												}
 												if(!$result){
 													echo "Select failed. Error: ".$mysqli->error ;
 													return false;
 												}
 												while($row=$result->fetch_array()){
 											?>
-											<option value="<?=$row['rental_duration']?>"><?=$row['rental_duration']?> days</option>
+											<option value="<?=$row['rental_duration']?>"><?=$row['rental_duration']?></option>
 											<?php }	?>
 										</select>
 									</div>
@@ -127,44 +136,36 @@
 										<input type="number" class="form-control" id="amount" name="amount"
 											placeholder="Amount">
 									</div>
-									<form method="post" name="calc" action="">
+									<!--<form method="post" name="calc" action="">
 										<div class="col-md-12 form-btn text-center">
 											<button name="cal" value="Total cost"></button>
 										</div>
-									</form>
+									</form>-->
+									<!--<div class="col-md-12 form-btn text-center">
+                                        <input class="btn btn-block btn-secondary btn-red" type="submit" name="submit1" value="<?$title?>">
+                                    </div>-->
 									<?php 
-											$q="SELECT * FROM film WHERE film.title='$title' ";
-											$result=$mysqli->query($q);
-											$x=0;
-											$amount=$_POST['amount'];
-												if(!$result){
-													echo "Select failed. Error: ".$mysqli->error ;
-													return false;
-												}
-												while($row=$result->fetch_array()){
-													$rent_rate=$row['rental_rate'];
-													if(isset($_POST['cal'])){
-														if(!empty($_row['rental_duration'])) {
-															$y=$_row['rental_duration'];
-															$x= $rent_rate*$y*$_POST['amount'];
-														} else {
-															echo 'Please select rent duration.';
-														}
-													}
-												}
+											$title=$title;
 										?>
-									<h5 style="margin-left: 1em;">Total cost: <?=$x?> $</h5>
+									<!--Cost<h5 style="margin-left: 1em;">Total cost: <?=$x?> $</h5>->
 												
 									<br>
-									
+									<!--<input type="text" name="title" value = >-->
 									<div class="col-md-12 form-btn text-center">
 										<input class="btn btn-block btn-secondary btn-red" type="submit" name="add" value="ADD TO INVENTORY">
 									</div>
+									<br>
+									
 								</div>
 							</div>
 							<!-- End of film content Holder -->
 						</div>
 					</form>
+								<?php if (isset($admin_id) ) : ?>
+											<td><a href='film_edit.php?film_id=<?=$film_id?>'><button class="btn btn-block btn-secondary btn-red" name="edit">
+                                               Edit
+                                        </button></a></td>
+										<?php endif ?>
                 </div>
             </div>
         </section>

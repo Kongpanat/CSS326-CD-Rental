@@ -1,6 +1,8 @@
 <?php require_once('connect.php');
-	session_unset();
 	session_start();
+	if(isset($_SESSION['admin_id'])){
+		unset($_SESSION['admin_id']);
+	}
 	if(isset($_POST['login'])) {
 		$email = $_POST["email"];
 		$passwd = $_POST["password"];
@@ -12,8 +14,10 @@
 			if(mysqli_num_rows($select_admin)>0){
 				$row = mysqli_fetch_assoc($select_admin);
 				$_SESSION['admin_id']=$row['admin_id'];
+			}else{
+				$_SESSION['user_id']=$row['user_id'];
+				unset($_SESSION['admin_id']);
 			}
-			$_SESSION['user_id']=$row['user_id'];
 			header ('location:profile.php');
 		}else{ echo ("<script LANGUAGE='JavaScript'>
             window.alert('Email or password is incorrect');

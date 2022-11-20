@@ -71,7 +71,7 @@
                 </div>
             </div>
         </nav>
-
+			
         <section id="gtco-contact-form" class="bg-white">
             <div class="container">
                 <div class="section-content">
@@ -93,7 +93,7 @@
 						<tr>
                             <p><strong>Name:<td><?php echo $fetch['f_name']?> <?php echo " " ?><?php echo $fetch['l_name']?></td> </strong></p>
                             <p><strong>Email: <td><?php echo $fetch['email']?> </td></strong></p>
-                            <p><strong>Status: <?php 
+                            <p><strong>Status: <?php //user:admin pass:a member:m pass:1
 													if(isset($admin_id)){
 														echo "admin";
 														/*echo ("<script LANGUAGE='JavaScript'> 
@@ -113,7 +113,6 @@
                                         </button></a></td>
 										<?php endif ?>
 							
-							
 						</tr>
 						
                                 <br>
@@ -125,11 +124,7 @@
 										</button>
 									</a>
                                 </div>
-                            </div>
                         </div>
-						<?php 
-							session_unset();
-						?>
                         <!-- End of film content Holder -->
                     </div>
                 </div>

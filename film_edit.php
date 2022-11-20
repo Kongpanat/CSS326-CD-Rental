@@ -1,6 +1,9 @@
 <?php require_once('connect.php'); 
+	$film_id=$_GET['film_id'];
+	//echo $film_id;
 	session_start();
-?>
+	$_SESSION['film_id']=$film_id;
+	?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,7 +11,7 @@
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Home</title>
+    <title>Edit Film</title>
     <meta name="description" content="Core HTML Project">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -51,8 +54,7 @@
                             <a class="nav-link" href="profile.php">Profile</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="inventory.php">Inventory</a>
-                            <!--<a class="nav-link" href="inventory.html">Inventory</a> when login as admin-->
+                            <a class="nav-link" href="add_film.php">Add Film</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="login.php">Logout</a>
@@ -61,94 +63,90 @@
                 </div>
             </div>
         </nav>
+
         <section id="gtco-contact-form" class="bg-white">
             <div class="container">
                 <div class="section-content">
                     <!-- Section Title -->
                     <div class="title-wrap">
-                        <h1 class="display-2 mb-4">Search Film</h1><br>
+                        <h1 class="display-2 mb-4">Film Detail</h1><br>
                     </div>
-                    <!-- End of Section Title -->
+                    <!-- Detail -->
+
                     <div class="row">
-                        <!-- Contact Form Holder -->
-                        <div class="col-md-8 offset-md-2 contact-form-holder mt-4">
-						
-                            <form method="post" name="login-form" action="">
-												
-                                <div class="row">
-                                    <div class="col-md-12 form-input">
-                                        <select class="form-control" id="title" name="title">
-                                            <option value="" disabled selected>Film Title</option>
-                                            <!--Do php-->
-											<?php
-												$q="SELECT * FROM film,film_genre WHERE film.film_id=film_genre.film_id ";
-												$result=$mysqli->query($q);
-												if(!$result){
-													echo "Select failed. Error: ".$mysqli->error ;
-													return false;
-												}
-												while($row=$result->fetch_array()){
-											?>
-                                            <option value="<?=$row['title']?>"><?=$row['title']?></option>
-											<?php } ?>
-                                        </select>
-                                    </div>
-                                    <br>
-                                    <br>
-                                    <div class="col-md-12 form-btn text-center">
-                                        <input class="btn btn-block btn-secondary btn-red" type="submit" name="submit" value="SEARCH">
-                                    </div>
+                        <!-- film Content Holder -->
+                        <div class="col-md-8 offset-md-2 mt-4">
+						<?php ?>
+							<form method="post" name="post" action="filmeditbackend.php?film_id=<?=$film_id?>">
+								<div class="row">
+									<p><strong>Film Title: </strong></p>
+									<div class="col-md-3 form-input">
+										<input type="text" class="form-control" id="title" name="title" placeholder="">
+									</div>
+								</div>
+								<div class="row">
+									<p><strong>Release Year: </strong></p>
+									<div class="col-md-3 form-input">
+										<input type="text" class="form-control" id="year" name="year" placeholder="">
+									</div>
+								</div>
+								<div class="row">
+									<p><strong>Genre: </strong></p>
+									<div class="col-md-3 form-input">
+										<input type="text" class="form-control" id="genre" name="genre" placeholder="">
+									</div>
+								</div>
+								<div class="row">
+									<p><strong>Length: </strong></p>
+									<div class="col-md-3 form-input">
+										<input type="text" class="form-control" id="length" name="length" placeholder="">
+									</div>
+								</div>
+								<div class="row">
+									<p><strong>Rating: </strong></p>
+									<div class="col-md-3 form-input">
+										<input type="text" class="form-control" id="rating" name="rating" placeholder="">
+									</div>
+								</div>
+								<div class="row">
+									<p><strong>Rental Rate: </strong></p>
+									<div class="col-md-3 form-input">
+										<input type="text" class="form-control" id="rating" name="rentalrate" placeholder="">
+									</div>
+								</div>
+								<div class="col-md-12 form-input">
+									<textarea type="text" class="form-control" style="height:12em;" id="detail" name="detail" placeholder="">
+										<--type new one-->
+									</textarea>
+								</div>
+								<br>
+								<div class="col-md-8 offset-md-2 contact-form-holder mt-4">
+									<div class="col-md-12 form-btn text-center">
+										<input class="btn btn-block btn-secondary btn-red" type="submit" name="submit1" value="UPLOAD">
+									
+									</div>
 									<?php
-											if(isset($_POST['submit'])){
-												if(!empty($_POST['title'])) {
-													$selected = $_POST['title'];
-													$x = 'film.php?title='.$selected;
-													echo ("<script LANGUAGE='JavaScript'>
-														window.location.href='$x';
-														</script>");
-												} else {
-													echo 'Please select film title.';
-												}
+										/*if(isset($_POST['submit1'])){
+											//echo $film_id;
+											if(!empty($film_id)) {
+												$x = 'filmeditbackend.php?film_id='.$film_id;
+												echo ("<script LANGUAGE='JavaScript'>
+													window.location.href='$x';
+													</script>");
+											}else{
 											}
-									?>
-                                </div>
-                                <br>
-                                <h5>All films</h5>
-                                <br>
-                                <!--Begin Table-->
-                                <table style="text-align: center; border-collapse: collapse; border: 1px solid black; table-layout: fixed; width: 100%;">
-                                    <tr>
-                                        <th style="border: 1px solid black">Title</th>
-                                        <th style="border: 1px solid black">Release Year</th>
-                                        <th style="border: 1px solid black">Genre</th>
-                                        <th style="border: 1px solid black">Length</th>
-                                        <th style="border: 1px solid black">Rental Rate</th>
-                                    </tr>
-                                    <!--Do php in tr-->
-									<?php
-											$q="SELECT * FROM film,film_genre WHERE film.film_id=film_genre.film_id ";
-											$result=$mysqli->query($q);
-											if(!$result){
-													echo "Select failed. Error: ".$mysqli->error ;
-													return false;
-												}
-											 while($row=$result->fetch_array()){ ?>
-									<tr>
-												<td><a href='film.php?title=<?=$row['title']?>'><?=$row['title']?></a></td> 
-												<td><?=$row['release_year']?> </td>
-												<td><?=$row['genre_name']?></td>
-												<td><?=$row['length']?></td>
-												<td><?=$row['rental_rate']?></td>
-									</tr>
-									<?php } ?>
-                                </table>
-                                <!--End Table-->
-                            </form>
+										}*/
+										?>
+								</div>
+							</form>
                         </div>
+                        <!-- End of film content Holder-->
                     </div>
                 </div>
             </div>
         </section>
+        <!-- End of Form Section -->
+
         <footer class="mastfoot mb-3 bg-white py-4 border-top">
             <div class="inner container">
                 <div class="row">

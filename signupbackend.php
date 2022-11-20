@@ -6,6 +6,7 @@
 		$email = $_POST["email"];
 		$passwd = $_POST["password"];
 		$cpasswd = $_POST["password2"];
+		$acctype = $_POST["acctype"];
 		$errors = array();
 		$x=0;
 		$user_check_query = "SELECT * FROM user WHERE email = '$email' ";
@@ -43,6 +44,12 @@
 					window.alert('Enter confirm password.');	
 					</script>");
             }
+		elseif (empty($acctype)) {
+			$x=1;
+			echo ("<script LANGUAGE='JavaScript'>
+					window.alert('Enter confirm account type.');	
+					</script>");
+			}
 		elseif (!$passwd==$cpasswd){
 			$x=1;
 			echo ("<script LANGUAGE='JavaScript'>
@@ -65,34 +72,32 @@
 					</script>");
 		}
 		//insert data
-		if($passwd==$cpasswd AND $x==0 ){
+		else{
 			$q="INSERT INTO user (f_name,l_name,email,password) 
 			VALUES ('$firstname','$lastname','$email','$passwd')";
 			$result=$mysqli->query($q);
 			$sel="SELECT user_id FROM user WHERE email='$email'";
-			$sels=$mysqli->query($sel);
-			if(mysqli_num_rows($sels)>0){
+			if($sels=$mysqli->query($sel)){
 				$row = mysqli_fetch_assoc($sels);
-				$uid=$row['user_id'];
+				$uid = $row['user_id'];
+				if($acctype == 'customer'){
 				$q1="INSERT INTO customer(customer_id,user_id) 
 					VALUES('$uid','$uid')";
+				}
+				elseif($acctype == 'admin'){
+				$q1="INSERT INTO admin(admin_id,user_id) 
+					VALUES('$uid','$uid]')";
+				}
+				
 				$res=$mysqli->query($q1);
+				echo ("<script LANGUAGE='JavaScript'>
+					window.location.href='http://localhost/project326/login.php';
+               		</script>");
 			}
-			echo ("<script LANGUAGE='JavaScript'>
-				window.location.href='http://localhost/project326/login.php';
-                </script>");
 			if(!$result){
 				echo "INSERT failed. Error: ".$mysqli->error ;
-				
-			return false;
+				return false;
 			}
-			 /*else {
-			echo ("<script LANGUAGE='JavaScript'>
-                window.alert('Password not Match');
-                window.location.href='http://localhost/online_cafe/Login.php';
-                </script>");
-		}*/
-		
 		}
         
 	}

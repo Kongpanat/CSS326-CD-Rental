@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 06, 2022 at 07:33 AM
+-- Generation Time: Nov 20, 2022 at 05:03 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -32,6 +32,14 @@ CREATE TABLE `admin` (
   `user_id` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `admin`
+--
+
+INSERT INTO `admin` (`admin_id`, `user_id`) VALUES
+(1, 1),
+(35, 35);
+
 -- --------------------------------------------------------
 
 --
@@ -42,6 +50,15 @@ CREATE TABLE `customer` (
   `customer_id` int(10) NOT NULL,
   `user_id` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `customer`
+--
+
+INSERT INTO `customer` (`customer_id`, `user_id`) VALUES
+(32, 32),
+(33, 33),
+(34, 34);
 
 -- --------------------------------------------------------
 
@@ -56,7 +73,7 @@ CREATE TABLE `film` (
   `release_year` int(4) NOT NULL,
   `rental_duration` int(10) NOT NULL,
   `rental_rate` int(4) NOT NULL,
-  `length` int(2) NOT NULL,
+  `length` int(3) NOT NULL,
   `rating` int(1) NOT NULL,
   `replacement_cost` int(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -81,8 +98,16 @@ CREATE TABLE `film_genre` (
 
 CREATE TABLE `inventory` (
   `inventory_id` int(10) NOT NULL,
-  `amount` int(10) NOT NULL
+  `amount` int(10) NOT NULL,
+  `film_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `inventory`
+--
+
+INSERT INTO `inventory` (`inventory_id`, `amount`, `film_id`) VALUES
+(1, 10, 1);
 
 -- --------------------------------------------------------
 
@@ -128,6 +153,17 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`user_id`, `f_name`, `l_name`, `email`, `password`) VALUES
+(1, 'A', 'admin', 'admin', 'a'),
+(32, 'name', 'lanem', 'mail', '1111'),
+(33, 'name', '2', 'm', '1'),
+(34, 'Testn', 'n', '1', '1'),
+(35, 'B', 'Admin', 'b', '1');
+
+--
 -- Indexes for dumped tables
 --
 
@@ -163,7 +199,8 @@ ALTER TABLE `film_genre`
 -- Indexes for table `inventory`
 --
 ALTER TABLE `inventory`
-  ADD PRIMARY KEY (`inventory_id`);
+  ADD PRIMARY KEY (`inventory_id`),
+  ADD KEY `fi_fk` (`film_id`);
 
 --
 -- Indexes for table `payment`
@@ -188,6 +225,46 @@ ALTER TABLE `user`
   ADD PRIMARY KEY (`user_id`);
 
 --
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `film`
+--
+ALTER TABLE `film`
+  MODIFY `film_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT for table `film_genre`
+--
+ALTER TABLE `film_genre`
+  MODIFY `genre_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `inventory`
+--
+ALTER TABLE `inventory`
+  MODIFY `inventory_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+
+--
+-- AUTO_INCREMENT for table `payment`
+--
+ALTER TABLE `payment`
+  MODIFY `payment_id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `rental`
+--
+ALTER TABLE `rental`
+  MODIFY `rental_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+
+--
+-- AUTO_INCREMENT for table `user`
+--
+ALTER TABLE `user`
+  MODIFY `user_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+
+--
 -- Constraints for dumped tables
 --
 
@@ -201,7 +278,7 @@ ALTER TABLE `admin`
 -- Constraints for table `customer`
 --
 ALTER TABLE `customer`
-  ADD CONSTRAINT `us1_fk` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`);
+  ADD CONSTRAINT `us_fk1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`);
 
 --
 -- Constraints for table `film`

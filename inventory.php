@@ -1,4 +1,7 @@
-<?php require_once('connect.php'); ?>
+<?php require_once('connect.php'); 
+	session_start();
+	$user_id=$_SESSION['user_id'];
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -92,11 +95,29 @@
                                                 <th style="border: 1px solid black">Del</th>
                                             </tr>
                                             <!--Do php in tr-->
-											<tr>
+											<?php
+												$select= mysqli_query($mysqli, "SELECT * FROM film,rental WHERE rental.customer_id='$user_id' OR film.inventory_id=rental.inventory_id")or die('query faied');
 												
+												while($row=$select->fetch_array()){ 
+											?>
+											<tr>
+												<th style="border: 1px solid black"><?=$row['title']?></th>
+												<th style="border: 1px solid black"><?=$row['rental_date']?></th>
+												<th style="border: 1px solid black"><?=$row['return_date']?></th>
+												<th style="border: 1px solid black"><?=$row['amount']?></th>
+												<th style="border: 1px solid black"><?=$row['rental_rate']?></th>
+												<th style="border: 1px solid black"><?=$row['replacement_cost']?></th>
+												<th style="border: 1px solid black"><a href='delinfo.php?rental_id=<?=$row['rental_id']?>'> Remove</a></th>
 											</tr>
+											<?php	}	?>
                                         </table>
                                         <!--End Table-->
+										<?php 	
+											$stmt = mysqli_query($mysqli,	"SELECT SUM(replacement_cost) AS value_sum FROM film,rental 
+											WHERE rental.customer_id='$user_id' OR film.inventory_id=rental.inventory_id");
+											$row = $stmt->fetch_array();
+											$sum = $row['value_sum'];
+											echo "Total Cost: ".$sum." $";?>
                                     </div>
                                 </div>
                             </form>
