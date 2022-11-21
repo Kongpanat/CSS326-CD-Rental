@@ -1,6 +1,6 @@
-<?php require_once('connect.php'); 
-	session_start();
-	$user_id=$_SESSION['user_id'];
+<?php require_once('connect.php');
+session_start();
+$user_id = $_SESSION['user_id'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -37,12 +37,11 @@
         <!--Start Header-->
         <nav id="gtco-header-navbar" class="navbar navbar-expand-lg py-4">
             <div class="container">
-                <a class="navbar-brand d-flex align-items-center" href="/">
+                <a class="navbar-brand d-flex align-items-center" href="home.php">
                     <span class="lnr lnr-moon"></span>
                 </a>
                 <!--Menu Button-->
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-nav-header"
-                    aria-controls="navbar-nav-header" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-nav-header" aria-controls="navbar-nav-header" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="lnr lnr-menu"></span>
                 </button>
                 <!--End Menu Button-->
@@ -55,12 +54,18 @@
                         <li class="nav-item">
                             <a class="nav-link" href="profile.php">Profile</a>
                         </li>
+                        <?php if (!isset($admin_id)) : ?>
+                            <li class="nav-item">
+                                <a class="nav-link" href="inventory.php">Inventory</a>
+                            </li>
+                        <?php endif ?>
+                        <?php if (isset($admin_id)) : ?>
+                            <li class="nav-item">
+                                <a class="nav-link" href="add_film.php">Add Film</a>
+                            </li>
+                        <?php endif ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="inventory.php">Inventory</a>
-                            <!--<a class="nav-link" href="inventory.html">Inventory</a> when login as admin-->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="login.php">Logout</a>
+                            <a class="nav-link" href="logout.php">Logout</a>
                         </li>
                     </ul>
                 </div>
@@ -95,29 +100,29 @@
                                                 <th style="border: 1px solid black">Del</th>
                                             </tr>
                                             <!--Do php in tr-->
-											<?php
-												$select= mysqli_query($mysqli, "SELECT * FROM film,rental WHERE rental.customer_id='$user_id' OR film.inventory_id=rental.inventory_id")or die('query faied');
-												
-												while($row=$select->fetch_array()){ 
-											?>
-											<tr>
-												<th style="border: 1px solid black"><?=$row['title']?></th>
-												<th style="border: 1px solid black"><?=$row['rental_date']?></th>
-												<th style="border: 1px solid black"><?=$row['return_date']?></th>
-												<th style="border: 1px solid black"><?=$row['amount']?></th>
-												<th style="border: 1px solid black"><?=$row['rental_rate']?></th>
-												<th style="border: 1px solid black"><?=$row['replacement_cost']?></th>
-												<th style="border: 1px solid black"><a href='delinfo.php?rental_id=<?=$row['rental_id']?>'> Remove</a></th>
-											</tr>
-											<?php	}	?>
+                                            <?php
+                                            $select = mysqli_query($mysqli, "SELECT * FROM film,rental WHERE rental.customer_id='$user_id' OR film.inventory_id=rental.inventory_id") or die('query faied');
+
+                                            while ($row = $select->fetch_array()) {
+                                            ?>
+                                                <tr>
+                                                    <td style="border: 1px solid black"><?= $row['title'] ?></td>
+                                                    <td style="border: 1px solid black"><?= $row['rental_date'] ?></td>
+                                                    <td style="border: 1px solid black"><?= $row['return_date'] ?></td>
+                                                    <td style="border: 1px solid black"><?= $row['amount'] ?></td>
+                                                    <td style="border: 1px solid black"><?= $row['rental_rate'] ?></td>
+                                                    <td style="border: 1px solid black"><?= $row['rental_rate']*$row['rental_duration']?></td>
+                                                    <td style="border: 1px solid black"><a href='delinfo.php?rental_id=<?= $row['rental_id'] ?>'>Remove</a></td>
+                                                </tr>
+                                            <?php    }    ?>
                                         </table>
                                         <!--End Table-->
-										<?php 	
-											$stmt = mysqli_query($mysqli,	"SELECT SUM(replacement_cost) AS value_sum FROM film,rental 
+                                        <?php
+                                        $stmt = mysqli_query($mysqli,    "SELECT SUM(rental_rate*rental_duration) AS value_sum FROM film,rental 
 											WHERE rental.customer_id='$user_id' OR film.inventory_id=rental.inventory_id");
-											$row = $stmt->fetch_array();
-											$sum = $row['value_sum'];
-											echo "Total Cost: ".$sum." $";?>
+                                        $row = $stmt->fetch_array();
+                                        $sum = $row['value_sum'];
+                                        echo "Total Cost: $" . $sum; ?>
                                     </div>
                                 </div>
                             </form>
@@ -131,8 +136,7 @@
             <div class="inner container">
                 <div class="row">
                     <div class="col-md-6 d-flex align-items-center justify-content-md-start justify-content-center">
-                        <p class="mb-0">&copy; 2019 Moon. All Right Reserved. Design by <a
-                                href="https://gettemplates.co" target="_blank">GetTemplates.co</a>.</p>
+                        <p class="mb-0">Project CSS326 Movie Rental System</p>
                     </div>
                 </div>
             </div>

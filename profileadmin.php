@@ -5,7 +5,7 @@ if(isset($_SESSION['admin_id'])){
 	$admin_id = $_SESSION['admin_id'];
 }
 if(!isset($user_id)){
-	header('location:login.php');
+	header('location:logout.php');
 }
 ?>
 <!DOCTYPE html>
@@ -42,7 +42,7 @@ if(!isset($user_id)){
     <div class="boxed-page">
         <nav id="gtco-header-navbar" class="navbar navbar-expand-lg py-4">
             <div class="container">
-                <a class="navbar-brand d-flex align-items-center" href="/">
+                <a class="navbar-brand d-flex align-items-center" href="home.php">
                     <span class="lnr lnr-moon"></span>
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-nav-header"
@@ -88,16 +88,16 @@ if(!isset($user_id)){
 							}
 						?>
 						<tr>
-                            <p><strong>Name:<td><?php echo $fetch['f_name']?> <?php echo " " ?><?php echo $fetch['l_name']?></td> </strong></p>
-                            <p><strong>Email: <td><?php echo $fetch['email']?> </td></strong></p>
-                            <p><strong>Status: <?php 
+                            <p><strong>Name:     </strong><td><?php echo $fetch['f_name']?> <?php echo " " ?><?php echo $fetch['l_name']?></td></p>
+                            <p><strong>Email:    </strong><td><?php echo $fetch['email']?> </td></p>
+                            <p><strong>Status:   </strong><?php 
 													if(isset($admin_id) and $admin_id==1){
 														echo "admin";
 														}else{ 
 														echo "member";
 														}
-														?></strong></p>
-                            <p><strong>ID: <td> <?php echo $fetch['user_id']?></td></strong></p>
+														?></p>
+                            <p><strong>ID:  </strong><td> <?php echo $fetch['user_id']?></td></p>
 							<td><a href='add_film.php?admin=<?=$admin_id?>'><button class="btn btn-block btn-secondary btn-red" name="add_film">
 											   Add film
 										</button></a></td>
@@ -126,8 +126,7 @@ if(!isset($user_id)){
             <div class="inner container">
                 <div class="row">
                     <div class="col-md-6 d-flex align-items-center justify-content-md-start justify-content-center">
-                        <p class="mb-0">&copy; 2019 Moon. All Right Reserved. Design by <a
-                                href="https://gettemplates.co" target="_blank">GetTemplates.co</a>.</p>
+                        <p class="mb-0">Project CSS326 Movie Rental System</p>
                     </div>
                 </div>
             </div>

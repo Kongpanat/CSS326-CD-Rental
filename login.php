@@ -84,8 +84,7 @@
             <div class="inner container">
                 <div class="row">
                     <div class="col-md-6 d-flex align-items-center justify-content-md-start justify-content-center">
-                        <p class="mb-0">&copy; 2019 Moon. All Right Reserved. Design by <a
-                                href="https://gettemplates.co" target="_blank">GetTemplates.co</a>.</p>
+                        <p class="mb-0">Project CSS326 Movie Rental System</p>
                     </div>
                 </div>
             </div>

@@ -35,8 +35,8 @@
 					</script>");
 		}
 		if($x==0){
-			$q1="INSERT INTO film (inventory_id,title,release_year,rental_duration,rental_rate,length,rating,replacement_cost)
-			VALUES ('1','$title','$releasey','30','$rentalrate','$length','$rating','1')";
+			$q1="INSERT INTO film (inventory_id,title,release_year,rental_duration,rental_rate,length,rating,replacement_cost,detail)
+			VALUES ('1','$title','$releasey','30','$rentalrate','$length','$rating','1','$detail')";
 			$result=$mysqli->query($q1);
 			$q3="SELECT film_id FROM film WHERE title='$title'";
 			$selectfid = mysqli_query($mysqli,$q3);

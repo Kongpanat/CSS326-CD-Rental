@@ -15,59 +15,33 @@
 		//errors case
 		if (empty($email)) {
 			$x=1;
-            
-			echo ("<script LANGUAGE='JavaScript'>
-					window.alert('Enter Email');	
-					</script>");
-            }
+		}
 		elseif (empty($firstname)) {
 			$x=1;
-			echo ("<script LANGUAGE='JavaScript'>
-					window.alert('Enter Firstname');	
-					</script>");
-            }
+		}
 		elseif (empty($lastname)) {
 			$x=1;
-			echo ("<script LANGUAGE='JavaScript'>
-					window.alert('Enter Lastname');	
-					</script>");
-            }
+		}
 		elseif (empty($passwd)) {
 			$x=1;
-			echo ("<script LANGUAGE='JavaScript'>
-					window.alert('Enter your password');	
-					</script>");
-            }
+		}
 		elseif (empty($cpasswd)) {
 			$x=1;
-			echo ("<script LANGUAGE='JavaScript'>
-					window.alert('Enter confirm password.');	
-					</script>");
-            }
+		}
 		elseif (empty($acctype)) {
 			$x=1;
-			echo ("<script LANGUAGE='JavaScript'>
-					window.alert('Enter confirm account type.');	
-					</script>");
-			}
+		}
 		elseif (!$passwd==$cpasswd){
 			$x=1;
-			echo ("<script LANGUAGE='JavaScript'>
-					window.alert('Confirm Password is not match Password.');	
-					</script>");
 		}
 		elseif($result) { // Email already used or not
                 if ($result['email'] === $email){
-					array_push($errors,"This Email is already used.");
 					$x=1;
-					echo ("<script LANGUAGE='JavaScript'>
-					window.alert('This Email is already used.');
-					</script>");
-					
                 }
             }
 		if($x==1){
 			echo ("<script LANGUAGE='JavaScript'>
+					window.alert('Please fill the form correctly');
 					window.location.href='http://localhost/project326/signup.php';
 					</script>");
 		}

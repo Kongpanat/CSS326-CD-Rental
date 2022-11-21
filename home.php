@@ -1,5 +1,8 @@
 <?php require_once('connect.php'); 
 	session_start();
+	if(isset($_SESSION['admin_id'])){
+		$admin_id=$_SESSION['admin_id'];
+	}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -35,7 +38,7 @@
     <div class="boxed-page">
         <nav id="gtco-header-navbar" class="navbar navbar-expand-lg py-4">
             <div class="container">
-                <a class="navbar-brand d-flex align-items-center" href="/">
+                <a class="navbar-brand d-flex align-items-center" href="home.php">
                     <span class="lnr lnr-moon"></span>
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-nav-header"
@@ -50,12 +53,18 @@
                         <li class="nav-item">
                             <a class="nav-link" href="profile.php">Profile</a>
                         </li>
+                        <?php if(!isset($admin_id)):?>
                         <li class="nav-item">
                             <a class="nav-link" href="inventory.php">Inventory</a>
-                            <!--<a class="nav-link" href="inventory.html">Inventory</a> when login as admin-->
                         </li>
+						<?php	endif ?>
+						<?php if(isset($admin_id)):?>
                         <li class="nav-item">
-                            <a class="nav-link" href="login.php">Logout</a>
+                            <a class="nav-link" href="add_film.php">Add Film</a>
+                        </li>
+						<?php	endif ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="logout.php">Logout</a>
                         </li>
                     </ul>
                 </div>
@@ -153,8 +162,7 @@
             <div class="inner container">
                 <div class="row">
                     <div class="col-md-6 d-flex align-items-center justify-content-md-start justify-content-center">
-                        <p class="mb-0">&copy; 2019 Moon. All Right Reserved. Design by <a
-                                href="https://gettemplates.co" target="_blank">GetTemplates.co</a>.</p>
+                        <p class="mb-0">Project CSS326 Movie Rental System</p>
                     </div>
                 </div>
             </div>

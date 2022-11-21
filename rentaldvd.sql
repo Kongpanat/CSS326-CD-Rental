@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 20, 2022 at 05:03 PM
+-- Generation Time: Nov 21, 2022 at 04:10 PM
 -- Server version: 10.4.24-MariaDB
--- PHP Version: 8.1.6
+-- PHP Version: 7.4.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -37,8 +37,7 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`admin_id`, `user_id`) VALUES
-(1, 1),
-(35, 35);
+(39, 39);
 
 -- --------------------------------------------------------
 
@@ -56,9 +55,8 @@ CREATE TABLE `customer` (
 --
 
 INSERT INTO `customer` (`customer_id`, `user_id`) VALUES
-(32, 32),
-(33, 33),
-(34, 34);
+(40, 40),
+(41, 41);
 
 -- --------------------------------------------------------
 
@@ -75,8 +73,18 @@ CREATE TABLE `film` (
   `rental_rate` int(4) NOT NULL,
   `length` int(3) NOT NULL,
   `rating` int(1) NOT NULL,
-  `replacement_cost` int(4) NOT NULL
+  `replacement_cost` int(4) NOT NULL,
+  `detail` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `film`
+--
+
+INSERT INTO `film` (`film_id`, `inventory_id`, `title`, `release_year`, `rental_duration`, `rental_rate`, `length`, `rating`, `replacement_cost`, `detail`) VALUES
+(16, 1, 'title1', 2000, 30, 5, 60, 7, 1, 'Test description 1 for Movie title 1'),
+(17, 1, 'title2', 1950, 30, 2, 100, 8, 1, 'Test description for film title 2\r\nrow 2\r\nrow 3\r\nro2 4'),
+(18, 1, 'title3', 2022, 30, 10, 120, 10, 1, 'Test description for <br> film title 3');
 
 -- --------------------------------------------------------
 
@@ -89,6 +97,15 @@ CREATE TABLE `film_genre` (
   `film_id` int(10) NOT NULL,
   `genre_name` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `film_genre`
+--
+
+INSERT INTO `film_genre` (`genre_id`, `film_id`, `genre_name`) VALUES
+(11, 16, 'genre1'),
+(12, 17, 'genre2'),
+(13, 18, 'genre1');
 
 -- --------------------------------------------------------
 
@@ -107,7 +124,14 @@ CREATE TABLE `inventory` (
 --
 
 INSERT INTO `inventory` (`inventory_id`, `amount`, `film_id`) VALUES
-(1, 10, 1);
+(1, 10, 1),
+(64, 0, 0),
+(65, 0, 0),
+(66, 1, 0),
+(67, 5, 0),
+(68, 1, 0),
+(69, 5, 0),
+(70, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -138,6 +162,14 @@ CREATE TABLE `rental` (
   `amount` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `rental`
+--
+
+INSERT INTO `rental` (`rental_id`, `customer_id`, `inventory_id`, `rental_date`, `return_date`, `amount`) VALUES
+(45, 40, 64, '2022-11-21', '2022-11-26', 5),
+(46, 40, 64, '2022-11-21', '2022-11-26', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -157,11 +189,9 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`user_id`, `f_name`, `l_name`, `email`, `password`) VALUES
-(1, 'A', 'admin', 'admin', 'a'),
-(32, 'name', 'lanem', 'mail', '1111'),
-(33, 'name', '2', 'm', '1'),
-(34, 'Testn', 'n', '1', '1'),
-(35, 'B', 'Admin', 'b', '1');
+(39, 'fadmin', 'ladmin', '@dmin', 'padmin'),
+(40, 'Fcustomer1', 'Lcustorme1', 'customer1', 'password'),
+(41, 'Fcustomer2', 'Lcustorme2', 'customer2', 'password');
 
 --
 -- Indexes for dumped tables
@@ -232,19 +262,19 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `film`
 --
 ALTER TABLE `film`
-  MODIFY `film_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `film_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `film_genre`
 --
 ALTER TABLE `film_genre`
-  MODIFY `genre_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `genre_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `inventory`
 --
 ALTER TABLE `inventory`
-  MODIFY `inventory_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `inventory_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
 
 --
 -- AUTO_INCREMENT for table `payment`
@@ -256,13 +286,13 @@ ALTER TABLE `payment`
 -- AUTO_INCREMENT for table `rental`
 --
 ALTER TABLE `rental`
-  MODIFY `rental_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `rental_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `user_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- Constraints for dumped tables

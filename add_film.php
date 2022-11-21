@@ -33,11 +33,10 @@
     <div class="boxed-page">
         <nav id="gtco-header-navbar" class="navbar navbar-expand-lg py-4">
             <div class="container">
-                <a class="navbar-brand d-flex align-items-center" href="/">
+                <a class="navbar-brand d-flex align-items-center" href="home.php">
                     <span class="lnr lnr-moon"></span>
                 </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-nav-header"
-                    aria-controls="navbar-nav-header" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-nav-header" aria-controls="navbar-nav-header" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="lnr lnr-menu"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbar-nav-header">
@@ -49,10 +48,10 @@
                             <a class="nav-link" href="profile.php">Profile</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="inventory.php">Inventory</a>
+                            <a class="nav-link" href="add_film.php">Add Film</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="login.php">Logout</a>
+                            <a class="nav-link" href="logout.php">Logout</a>
                         </li>
                     </ul>
                 </div>
@@ -71,57 +70,54 @@
                     <div class="row">
                         <!-- film Content Holder -->
                         <div class="col-md-8 offset-md-2 mt-4">
-						<form method="post" name="login-form" action="addfilmbackend.php">
-                            <div class="row">
-                                <p><strong>Film Title: </strong></p>
-                                <div class="col-md-3 form-input">
-                                    <input type="text" class="form-control" id="title" name="title" placeholder="">
+                            <form method="post" name="login-form" action="addfilmbackend.php">
+                                <div class="row">
+                                    <p><strong>Film Title: </strong></p>
+                                    <div class="col-md-3 form-input">
+                                        <input type="text" class="form-control" id="title" name="title" placeholder="Title">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <p><strong>Release Year: </strong></p>
-                                <div class="col-md-3 form-input">
-                                    <input type="text" class="form-control" id="year" name="year" placeholder="">
+                                <div class="row">
+                                    <p><strong>Release Year: </strong></p>
+                                    <div class="col-md-3 form-input">
+                                        <input type="text" class="form-control" id="year" name="year" placeholder="Release Year">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <p><strong>Genre: </strong></p>
-                                <div class="col-md-3 form-input">
-                                    <input type="text" class="form-control" id="genre" name="genre" placeholder="">
+                                <div class="row">
+                                    <p><strong>Genre: </strong></p>
+                                    <div class="col-md-3 form-input">
+                                        <input type="text" class="form-control" id="genre" name="genre" placeholder="Genre">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <p><strong>Length: </strong></p>
-                                <div class="col-md-3 form-input">
-                                    <input type="text" class="form-control" id="length" name="length" placeholder="">
+                                <div class="row">
+                                    <p><strong>Length: </strong></p>
+                                    <div class="col-md-3 form-input">
+                                        <input type="text" class="form-control" id="length" name="length" placeholder="Length">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <p><strong>Rating: </strong></p>
-                                <div class="col-md-3 form-input">
-                                    <input type="text" class="form-control" id="rating" name="rating" placeholder="">
+                                <div class="row">
+                                    <p><strong>Rating: </strong></p>
+                                    <div class="col-md-3 form-input">
+                                        <input type="text" class="form-control" id="rating" name="rating" placeholder="Rating">
+                                    </div>
                                 </div>
-                            </div>
-							<div class="row">
-                                <p><strong>Rental Rate: </strong></p>
-                                <div class="col-md-3 form-input">
-                                    <input type="text" class="form-control" id="rate" name="rentalrate" placeholder="">
+                                <div class="row">
+                                    <p><strong>Rental Rate: </strong></p>
+                                    <div class="col-md-3 form-input">
+                                        <input type="text" class="form-control" id="rate" name="rentalrate" placeholder="Rental Rate">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-12 form-input">
-                                <textarea type="text" class="form-control" style="height:12em;" id="detail" name="detail" placeholder="">
-                                    <!--text from old detail-->
-                                </textarea>
-                            </div>
-                            <br>
-                            <div class="col-md-8 offset-md-2 contact-form-holder mt-4">
-                                <div class="col-md-12 form-btn text-center">
-                                    <input class="btn btn-block btn-secondary btn-red" type="submit" name="f_add" value="ADD">
+                                <div class="col-md-12 form-input">
+                                    <textarea type="text" class="form-control" style="height:12em;" id="detail" name="detail" placeholder="Description"></textarea>
                                 </div>
-                            </div>
-						</form>
+                                <div class="col-md-8 offset-md-2 contact-form-holder mt-4">
+                                    <div class="col-md-12 form-btn text-center">
+                                        <input class="btn btn-block btn-secondary btn-red" type="submit" name="f_add" value="ADD">
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-                        <!-- End of film content Holder
+                        <!-- End of film content Holder-->
                     </div>
                 </div>
             </div>
@@ -132,8 +128,7 @@
             <div class="inner container">
                 <div class="row">
                     <div class="col-md-6 d-flex align-items-center justify-content-md-start justify-content-center">
-                        <p class="mb-0">&copy; 2019 Moon. All Right Reserved. Design by <a
-                                href="https://gettemplates.co" target="_blank">GetTemplates.co</a>.</p>
+                        <p class="mb-0">Project CSS326 Movie Rental System</p>
                     </div>
                 </div>
             </div>

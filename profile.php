@@ -45,7 +45,7 @@
     <div class="boxed-page">
         <nav id="gtco-header-navbar" class="navbar navbar-expand-lg py-4">
             <div class="container">
-                <a class="navbar-brand d-flex align-items-center" href="/">
+                <a class="navbar-brand d-flex align-items-center" href="home.php">
                     <span class="lnr lnr-moon"></span>
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-nav-header"
@@ -60,12 +60,18 @@
                         <li class="nav-item">
                             <a class="nav-link" href="profile.php">Profile</a>
                         </li>
+                        <?php if(!isset($admin_id)):?>
                         <li class="nav-item">
                             <a class="nav-link" href="inventory.php">Inventory</a>
-                            <!--<a class="nav-link" href="inventory.html">Inventory</a> when login as admin-->
                         </li>
+						<?php	endif ?>
+						<?php if(isset($admin_id)):?>
                         <li class="nav-item">
-                            <a class="nav-link" href="login.php">Logout</a>
+                            <a class="nav-link" href="add_film.php">Add Film</a>
+                        </li>
+						<?php	endif ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="logout.php">Logout</a>
                         </li>
                     </ul>
                 </div>
@@ -91,19 +97,19 @@
 							}
 						?>
 						<tr>
-                            <p><strong>Name:<td><?php echo $fetch['f_name']?> <?php echo " " ?><?php echo $fetch['l_name']?></td> </strong></p>
-                            <p><strong>Email: <td><?php echo $fetch['email']?> </td></strong></p>
-                            <p><strong>Status: <?php //user:admin pass:a member:m pass:1
+                            <p><strong>Name:    </strong><td><?php echo $fetch['f_name']?> <?php echo " " ?><?php echo $fetch['l_name']?></td></p>
+                            <p><strong>Email:   </strong><td><?php echo $fetch['email']?> </td></p>
+                            <p><strong>Status:  </strong><?php //user:admin pass:a member:m pass:1
 													if(isset($admin_id)){
 														echo "admin";
 														/*echo ("<script LANGUAGE='JavaScript'> 
 														window.location.href='profileadmin.php';
 														</script>");*/
 														}else{ 
-														echo "member";
+														echo "Customer";
 														}
 														?></strong></p>
-                            <p><strong>ID: <td> <?php echo $fetch['user_id']?></td></strong></p>
+                            <p><strong>ID:  </strong><td> <?php echo $fetch['user_id']?></td></p>
 							<!--<a href='add_film.php?admin=<?=$admin_id?>'><button class="btn btn-block btn-secondary btn-red" name="add_film">
 							 Add film
                                         </button></a>-->
@@ -116,7 +122,7 @@
 						</tr>
 						
                                 <br>
-								
+								<?php if(!isset($admin_id)):?>
                                 <div class="col-md-12 form-btn text-center">
                                     <a href="inventory.php">
 										<button class="btn btn-block btn-secondary btn-red" name="inv">
@@ -124,6 +130,7 @@
 										</button>
 									</a>
                                 </div>
+								<?php	endif?>
                         </div>
                         <!-- End of film content Holder -->
                     </div>
@@ -136,8 +143,7 @@
             <div class="inner container">
                 <div class="row">
                     <div class="col-md-6 d-flex align-items-center justify-content-md-start justify-content-center">
-                        <p class="mb-0">&copy; 2019 Moon. All Right Reserved. Design by <a
-                                href="https://gettemplates.co" target="_blank">GetTemplates.co</a>.</p>
+                        <p class="mb-0">Project CSS326 Movie Rental System</p>
                     </div>
                 </div>
             </div>

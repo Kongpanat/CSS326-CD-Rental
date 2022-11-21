@@ -33,11 +33,10 @@
     <div class="boxed-page">
         <nav id="gtco-header-navbar" class="navbar navbar-expand-lg py-4">
             <div class="container">
-                <a class="navbar-brand d-flex align-items-center" href="/">
+                <a class="navbar-brand d-flex align-items-center" href="home.php">
                     <span class="lnr lnr-moon"></span>
                 </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-nav-header"
-                    aria-controls="navbar-nav-header" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-nav-header" aria-controls="navbar-nav-header" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="lnr lnr-menu"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbar-nav-header">
@@ -52,7 +51,7 @@
                             <a class="nav-link" href="add_film.php">Add Film</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="login.php">Logout</a>
+                            <a class="nav-link" href="logout.php">Logout</a>
                         </li>
                     </ul>
                 </div>
@@ -67,49 +66,40 @@
                         <h1 class="display-2 mb-4">Film Detail</h1><br>
                     </div>
                     <!-- Detail -->
-
-                    <div class="row">
-                        <!-- film Content Holder -->
-                        <div class="col-md-8 offset-md-2 mt-4">
-                            <p><strong>Film Title: </strong></p>
-                            <p><strong>Release year: </strong></p>
-                            <p><strong>Genre: </strong></p>
-                            <p><strong>Length: </strong></p>
-                            <p><strong>Rating: </strong></p>
-                            <!-- <p>Consectetur adipisicing elit. Sint, corrupti deleniti, rem mollitia quam cum
-                                quo, animi
-                                ipsa praesentium officiis ducimus! Modi aperiam, nulla ipsum, totam natus
-                                consequuntur
-                                fugiat blanditiis.
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste harum, ut
-                                magni
-                                cupiditate. Nihil ipsum debitis voluptates voluptate illum consectetur
-                                sapiente dolorem
-                            </p> -->
-                            <br>
-                            <div class="col-md-8 offset-md-2 contact-form-holder mt-4">
-                                <div class="col-md-12 form-btn text-center">
-                                    <input class="btn btn-block btn-secondary btn-red" type="submit" name="edit" value="EDIT">
-                                </div>
+                    <form method="post" name="login-form" action="addfilmbackend.php">
+                        <div class="row">
+                            <!-- film Content Holder -->
+                            <div class="col-md-8 offset-md-2 mt-4">
+                                <p><strong>Film Title: </strong></p>
+                                <p><strong>Release year: </strong></p>
+                                <p><strong>Genre: </strong></p>
+                                <p><strong>Length: </strong></p>
+                                <p><strong>Rating: </strong></p>
                             </div>
                         </div>
-                        <!-- End of film content Holder -->
-                    </div>
+                        <br>
+                        <div class="col-md-8 offset-md-2 contact-form-holder mt-4">
+                            <div class="col-md-12 form-btn text-center">
+                                <input class="btn btn-block btn-secondary btn-red" type="submit" name="edit" value="EDIT">
+                            </div>
+                        </div>
+                    </form>
+                    <!-- End of film content Holder -->
                 </div>
             </div>
-        </section>
-        <!-- End of Form Section -->
+    </div>
+    </section>
+    <!-- End of Form Section -->
 
-        <footer class="mastfoot mb-3 bg-white py-4 border-top">
-            <div class="inner container">
-                <div class="row">
-                    <div class="col-md-6 d-flex align-items-center justify-content-md-start justify-content-center">
-                        <p class="mb-0">&copy; 2019 Moon. All Right Reserved. Design by <a
-                                href="https://gettemplates.co" target="_blank">GetTemplates.co</a>.</p>
-                    </div>
+    <footer class="mastfoot mb-3 bg-white py-4 border-top">
+        <div class="inner container">
+            <div class="row">
+                <div class="col-md-6 d-flex align-items-center justify-content-md-start justify-content-center">
+                    <p class="mb-0">Project CSS326 Movie Rental System</p>
                 </div>
             </div>
-        </footer>
+        </div>
+    </footer>
     </div>
 
     <!-- External JS -->

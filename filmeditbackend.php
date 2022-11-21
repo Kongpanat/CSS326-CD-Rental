@@ -30,16 +30,16 @@
 			$x=1;
 		}
 		if($x==1){
-			/*echo ("<script LANGUAGE='JavaScript'>
+			echo ("<script LANGUAGE='JavaScript'>
 					window.alert('Filled the form incorrectly');
-					window.location.href='film_edit.php';
-					</script>");*/
+					window.location.href='home.php';
+					</script>");
 		}
 		//update
 		if($x==0){
 			$q1="UPDATE film SET inventory_id='1',title='$title'
 			,release_year='$releasey',rental_duration='30',rental_rate='$rentalrate'
-			,length='$length',rating='$rating',replacement_cost='1' WHERE film_id='$film_id'";
+			,length='$length',rating='$rating',replacement_cost='1',detail='$detail' WHERE film_id='$film_id'";
 			$result=$mysqli->query($q1);
 			$q3="SELECT film_id FROM film WHERE title='$title'";
 			$selectfid = mysqli_query($mysqli,$q3);
