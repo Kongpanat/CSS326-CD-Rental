@@ -1,7 +1,5 @@
 <?php require_once('connect.php');
 	session_start();
-	//get film_id from film_edit.php
-	//$film_id=$_SESSION['film_id'];
 	$film_id=$_GET['film_id'];
 	if(isset($film_id)){
 		//echo "receive post";
@@ -50,7 +48,7 @@
 				$result=$mysqli->query($q2);
 			}
 			echo ("<script LANGUAGE='JavaScript'>
-				window.location.href='home.php';
+				window.location.href='film.php?title=$title';
                 </script>");
 			if(!$result){
 				echo "INSERT failed. Error: ".$mysqli->error ;

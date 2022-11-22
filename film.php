@@ -10,6 +10,9 @@ if (isset($_GET['title'])) {
 } else {
     echo "Can not see title";
 }
+if (isset($_SESSION['film_id'])){
+		unset($_SESSION['film_id']);
+}
 
 ?>
 <!DOCTYPE html>
@@ -95,6 +98,7 @@ if (isset($_GET['title'])) {
                                 if (mysqli_num_rows($select) > 0) {
                                     $fetch = mysqli_fetch_assoc($select);
                                     $film_id = $fetch['film_id'];
+									$_SESSION['film_id']=$film_id;
                                 }
                                 ?>
                                 <p><strong>Film Title: </strong><?php echo $fetch['title'] ?></p>

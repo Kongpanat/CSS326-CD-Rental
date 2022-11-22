@@ -1,6 +1,5 @@
 <?php require_once('connect.php'); 
 	$film_id=$_GET['film_id'];
-	//echo $film_id;
 	session_start();
 	$_SESSION['film_id']=$film_id;
 	?>
@@ -76,46 +75,52 @@
                     <div class="row">
                         <!-- film Content Holder -->
                         <div class="col-md-8 offset-md-2 mt-4">
-						<?php ?>
+						<?php  
+							$select = mysqli_query($mysqli, "SELECT * FROM film, film_genre WHERE film.film_id='$film_id' AND film_genre.film_id=film.film_id") or die('query faied');
+                            if (mysqli_num_rows($select) > 0) {
+                                $fetch = mysqli_fetch_assoc($select);
+                                $film_id = $fetch['film_id'];
+                                }
+						?>
 							<form method="post" name="post" action="filmeditbackend.php?film_id=<?=$film_id?>">
 								<div class="row">
 									<p><strong>Film Title: </strong></p>
 									<div class="col-md-3 form-input">
-										<input type="text" class="form-control" id="title" name="title" placeholder="">
+										<input type="text" class="form-control" id="title" name="title" placeholder="<?php echo $fetch['title'] ?>" value="<?php echo $fetch['title'] ?>">
 									</div>
 								</div>
 								<div class="row">
 									<p><strong>Release Year: </strong></p>
 									<div class="col-md-3 form-input">
-										<input type="text" class="form-control" id="year" name="year" placeholder="">
+										<input type="text" class="form-control" id="year" name="year" placeholder="<?php echo $fetch['release_year'] ?>" value="<?php echo $fetch['release_year'] ?>">
 									</div>
 								</div>
 								<div class="row">
 									<p><strong>Genre: </strong></p>
 									<div class="col-md-3 form-input">
-										<input type="text" class="form-control" id="genre" name="genre" placeholder="">
+										<input type="text" class="form-control" id="genre" name="genre" placeholder="<?php echo $fetch['genre_name'] ?>" value="<?php echo $fetch['genre_name'] ?>">
 									</div>
 								</div>
 								<div class="row">
 									<p><strong>Length: </strong></p>
 									<div class="col-md-3 form-input">
-										<input type="text" class="form-control" id="length" name="length" placeholder="">
+										<input type="text" class="form-control" id="length" name="length" placeholder="<?php echo $fetch['length'] ?>" value="<?php echo $fetch['length'] ?>">
 									</div>
 								</div>
 								<div class="row">
 									<p><strong>Rating: </strong></p>
 									<div class="col-md-3 form-input">
-										<input type="text" class="form-control" id="rating" name="rating" placeholder="">
+										<input type="text" class="form-control" id="rating" name="rating" placeholder="<?php echo $fetch['rating'] ?>" value="<?php echo $fetch['rating'] ?>">
 									</div>
 								</div>
 								<div class="row">
 									<p><strong>Rental Rate: </strong></p>
 									<div class="col-md-3 form-input">
-										<input type="text" class="form-control" id="rating" name="rentalrate" placeholder="">
+										<input type="text" class="form-control" id="rating" name="rentalrate" placeholder="<?php echo $fetch['rental_rate'] ?>" value="<?php echo $fetch['rental_rate'] ?>">
 									</div>
 								</div>
 								<div class="col-md-12 form-input">
-									<textarea type="text" class="form-control" style="height:12em;" id="detail" name="detail" placeholder=""></textarea>
+									<textarea type="text" class="form-control" style="height:12em;" id="detail" name="detail" placeholder="<?php echo $fetch['detail'] ?>" ><?php echo $fetch['detail'] ?></textarea>
 								</div>
 								<br>
 								<div class="col-md-8 offset-md-2 contact-form-holder mt-4">

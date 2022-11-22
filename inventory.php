@@ -101,28 +101,28 @@ $user_id = $_SESSION['user_id'];
                                             </tr>
                                             <!--Do php in tr-->
                                             <?php
-                                            $select = mysqli_query($mysqli, "SELECT * FROM film,rental WHERE rental.customer_id='$user_id' OR film.inventory_id=rental.inventory_id") or die('query faied');
+                                            $select = mysqli_query($mysqli, "SELECT * FROM film,rental WHERE rental.customer_id='$user_id' AND film.inventory_id=rental.inventory_id") or die('query faied');
 
                                             while ($row = $select->fetch_array()) {
                                             ?>
                                                 <tr>
-                                                    <td style="border: 1px solid black"><?= $row['title'] ?></td>
-                                                    <td style="border: 1px solid black"><?= $row['rental_date'] ?></td>
-                                                    <td style="border: 1px solid black"><?= $row['return_date'] ?></td>
-                                                    <td style="border: 1px solid black"><?= $row['amount'] ?></td>
-                                                    <td style="border: 1px solid black"><?= $row['rental_rate'] ?></td>
-                                                    <td style="border: 1px solid black"><?= $row['rental_rate']*$row['rental_duration']?></td>
-                                                    <td style="border: 1px solid black"><a href='delinfo.php?rental_id=<?= $row['rental_id'] ?>'>Remove</a></td>
+                                                    <td><?= $row['title'] ?></td>
+                                                    <td><?= $row['rental_date'] ?></td>
+                                                    <td><?= $row['return_date'] ?></td>
+                                                    <td><?= $row['amount'] ?></td>
+                                                    <td><?= $row['rental_rate'] ?> / days</td>
+                                                    <td><?= $row['replacement_cost']?></td>
+                                                    <td><a href='del_inventory.php?rental_id=<?= $row['rental_id'] ?>'>Remove</a></td>
                                                 </tr>
                                             <?php    }    ?>
                                         </table>
                                         <!--End Table-->
                                         <?php
-                                        $stmt = mysqli_query($mysqli,    "SELECT SUM(rental_rate*rental_duration) AS value_sum FROM film,rental 
-											WHERE rental.customer_id='$user_id' OR film.inventory_id=rental.inventory_id");
+                                        $stmt = mysqli_query($mysqli,    "SELECT SUM(replacement_cost) AS value_sum FROM film,rental 
+											WHERE rental.customer_id='$user_id' AND film.inventory_id=rental.inventory_id");
                                         $row = $stmt->fetch_array();
                                         $sum = $row['value_sum'];
-                                        echo "Total Cost: $" . $sum; ?>
+                                        echo '<div style="text-align: justify; text-align-last: right">Total Cost: $' . $sum. '</div>';?>
                                     </div>
                                 </div>
                             </form>

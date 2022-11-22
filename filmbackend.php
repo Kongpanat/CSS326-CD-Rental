@@ -24,7 +24,7 @@
 		$q="INSERT INTO inventory (amount,film_id)
 			VALUES ('$amount','$film_id')";
 		$result=$mysqli->query($q);
-		//calculate replacementcost
+		//calculate cost
 		$q1="SELECT * FROM film WHERE film_id='$film_id'";
 		$sel1= mysqli_query($mysqli,$q1);
 		if(mysqli_num_rows($sel1)>0){
@@ -38,7 +38,6 @@
 		if(mysqli_num_rows($sel)>0){
 				$row = mysqli_fetch_assoc($sel);
 				$inv_id=$row['inventory_id'];
-				//echo $inv_id;
 				$q2="UPDATE film SET inventory_id = '$inv_id', rental_duration='$rent_duration', replacement_cost='$x' WHERE film_id='$film_id'";
 				$upd= mysqli_query($mysqli,$q2);
 				echo ("<script LANGUAGE='JavaScript'>
@@ -55,6 +54,5 @@
 		$q2="INSERT INTO rental (customer_id,inventory_id,rental_date,return_date,amount)
 			VALUES ('$customer_id','$inv_id','$rental_date','$return_date','$amount')";
 		$result2=$mysqli->query($q2);
-		
 	
 ?>

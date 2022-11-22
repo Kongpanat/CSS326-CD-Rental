@@ -1,8 +1,8 @@
-<?php require_once('connect.php'); 
-	session_start();
-	if(isset($_SESSION['admin_id'])){
-		$admin_id=$_SESSION['admin_id'];
-	}
+<?php require_once('connect.php');
+session_start();
+if (isset($_SESSION['admin_id'])) {
+    $admin_id = $_SESSION['admin_id'];
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -41,8 +41,7 @@
                 <a class="navbar-brand d-flex align-items-center" href="home.php">
                     <span class="lnr lnr-moon"></span>
                 </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-nav-header"
-                    aria-controls="navbar-nav-header" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-nav-header" aria-controls="navbar-nav-header" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="lnr lnr-menu"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbar-nav-header">
@@ -53,16 +52,16 @@
                         <li class="nav-item">
                             <a class="nav-link" href="profile.php">Profile</a>
                         </li>
-                        <?php if(!isset($admin_id)):?>
-                        <li class="nav-item">
-                            <a class="nav-link" href="inventory.php">Inventory</a>
-                        </li>
-						<?php	endif ?>
-						<?php if(isset($admin_id)):?>
-                        <li class="nav-item">
-                            <a class="nav-link" href="add_film.php">Add Film</a>
-                        </li>
-						<?php	endif ?>
+                        <?php if (!isset($admin_id)) : ?>
+                            <li class="nav-item">
+                                <a class="nav-link" href="inventory.php">Inventory</a>
+                            </li>
+                        <?php endif ?>
+                        <?php if (isset($admin_id)) : ?>
+                            <li class="nav-item">
+                                <a class="nav-link" href="add_film.php">Add Film</a>
+                            </li>
+                        <?php endif ?>
                         <li class="nav-item">
                             <a class="nav-link" href="logout.php">Logout</a>
                         </li>
@@ -81,25 +80,25 @@
                     <div class="row">
                         <!-- Contact Form Holder -->
                         <div class="col-md-8 offset-md-2 contact-form-holder mt-4">
-						
+
                             <form method="post" name="login-form" action="">
-												
+
                                 <div class="row">
                                     <div class="col-md-12 form-input">
                                         <select class="form-control" id="title" name="title">
                                             <option value="" disabled selected>Film Title</option>
                                             <!--Do php-->
-											<?php
-												$q="SELECT * FROM film,film_genre WHERE film.film_id=film_genre.film_id ";
-												$result=$mysqli->query($q);
-												if(!$result){
-													echo "Select failed. Error: ".$mysqli->error ;
-													return false;
-												}
-												while($row=$result->fetch_array()){
-											?>
-                                            <option value="<?=$row['title']?>"><?=$row['title']?></option>
-											<?php } ?>
+                                            <?php
+                                            $q = "SELECT * FROM film,film_genre WHERE film.film_id=film_genre.film_id ";
+                                            $result = $mysqli->query($q);
+                                            if (!$result) {
+                                                echo "Select failed. Error: " . $mysqli->error;
+                                                return false;
+                                            }
+                                            while ($row = $result->fetch_array()) {
+                                            ?>
+                                                <option value="<?= $row['title'] ?>"><?= $row['title'] ?></option>
+                                            <?php } ?>
                                         </select>
                                     </div>
                                     <br>
@@ -107,19 +106,19 @@
                                     <div class="col-md-12 form-btn text-center">
                                         <input class="btn btn-block btn-secondary btn-red" type="submit" name="submit" value="SEARCH">
                                     </div>
-									<?php
-											if(isset($_POST['submit'])){
-												if(!empty($_POST['title'])) {
-													$selected = $_POST['title'];
-													$x = 'film.php?title='.$selected;
-													echo ("<script LANGUAGE='JavaScript'>
+                                    <?php
+                                    if (isset($_POST['submit'])) {
+                                        if (!empty($_POST['title'])) {
+                                            $selected = $_POST['title'];
+                                            $x = 'film.php?title=' . $selected;
+                                            echo ("<script LANGUAGE='JavaScript'>
 														window.location.href='$x';
 														</script>");
-												} else {
-													echo 'Please select film title.';
-												}
-											}
-									?>
+                                        } else {
+                                            echo 'Please select film title.';
+                                        }
+                                    }
+                                    ?>
                                 </div>
                                 <br>
                                 <h5>All films</h5>
@@ -134,22 +133,22 @@
                                         <th style="border: 1px solid black">Rental Rate</th>
                                     </tr>
                                     <!--Do php in tr-->
-									<?php
-											$q="SELECT * FROM film,film_genre WHERE film.film_id=film_genre.film_id ";
-											$result=$mysqli->query($q);
-											if(!$result){
-													echo "Select failed. Error: ".$mysqli->error ;
-													return false;
-												}
-											 while($row=$result->fetch_array()){ ?>
-									<tr>
-												<td><a href='film.php?title=<?=$row['title']?>'><?=$row['title']?></a></td> 
-												<td><?=$row['release_year']?> </td>
-												<td><?=$row['genre_name']?></td>
-												<td><?=$row['length']?></td>
-												<td><?=$row['rental_rate']?></td>
-									</tr>
-									<?php } ?>
+                                    <?php
+                                    $q = "SELECT * FROM film,film_genre WHERE film.film_id=film_genre.film_id ";
+                                    $result = $mysqli->query($q);
+                                    if (!$result) {
+                                        echo "Select failed. Error: " . $mysqli->error;
+                                        return false;
+                                    }
+                                    while ($row = $result->fetch_array()) { ?>
+                                        <tr>
+                                            <td><a href='film.php?title=<?= $row['title'] ?>'><?= $row['title'] ?></a></td>
+                                            <td><?= $row['release_year'] ?> </td>
+                                            <td><?= $row['genre_name'] ?></td>
+                                            <td><?= $row['length'] ?></td>
+                                            <td><?= $row['rental_rate'] ?></td>
+                                        </tr>
+                                    <?php } ?>
                                 </table>
                                 <!--End Table-->
                             </form>

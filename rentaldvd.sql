@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 21, 2022 at 04:10 PM
+-- Generation Time: Nov 22, 2022 at 12:45 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -143,8 +143,7 @@ CREATE TABLE `payment` (
   `payment_id` int(10) NOT NULL,
   `rental_id` int(10) NOT NULL,
   `customer_id` int(10) NOT NULL,
-  `total_pay` int(5) NOT NULL,
-  `payment_date` date NOT NULL
+  `total_pay` int(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -189,7 +188,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`user_id`, `f_name`, `l_name`, `email`, `password`) VALUES
-(39, 'fadmin', 'ladmin', '@dmin', 'padmin'),
+(39, 'fadmin', 'ladmin', 'admin', 'padmin'),
 (40, 'Fcustomer1', 'Lcustorme1', 'customer1', 'password'),
 (41, 'Fcustomer2', 'Lcustorme2', 'customer2', 'password');
 
