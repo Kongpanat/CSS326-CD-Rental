@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 22, 2022 at 12:45 PM
+-- Generation Time: Nov 23, 2022 at 03:03 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -73,7 +73,6 @@ CREATE TABLE `film` (
   `rental_rate` int(4) NOT NULL,
   `length` int(3) NOT NULL,
   `rating` int(1) NOT NULL,
-  `replacement_cost` int(4) NOT NULL,
   `detail` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -81,10 +80,10 @@ CREATE TABLE `film` (
 -- Dumping data for table `film`
 --
 
-INSERT INTO `film` (`film_id`, `inventory_id`, `title`, `release_year`, `rental_duration`, `rental_rate`, `length`, `rating`, `replacement_cost`, `detail`) VALUES
-(16, 1, 'title1', 2000, 30, 5, 60, 7, 1, 'Test description 1 for Movie title 1'),
-(17, 1, 'title2', 1950, 30, 2, 100, 8, 1, 'Test description for film title 2\r\nrow 2\r\nrow 3\r\nro2 4'),
-(18, 1, 'title3', 2022, 30, 10, 120, 10, 1, 'Test description for <br> film title 3');
+INSERT INTO `film` (`film_id`, `inventory_id`, `title`, `release_year`, `rental_duration`, `rental_rate`, `length`, `rating`, `detail`) VALUES
+(16, 72, 'title1', 2000, 10, 5, 60, 7, 'Test description 1 for Movie title 1'),
+(17, 71, 'title2', 1950, 14, 2, 100, 8, 'Test description for film title 2\r\nrow 2\r\nrow 3\r\nro2 4'),
+(18, 73, 'title3', 2022, 2, 10, 120, 10, 'Test description for <br> film title 3');
 
 -- --------------------------------------------------------
 
@@ -131,7 +130,15 @@ INSERT INTO `inventory` (`inventory_id`, `amount`, `film_id`) VALUES
 (67, 5, 0),
 (68, 1, 0),
 (69, 5, 0),
-(70, 1, 0);
+(70, 1, 0),
+(71, 1, 17),
+(72, 1, 16),
+(73, 1, 18),
+(74, 8, 16),
+(75, 1, 17),
+(76, 2, 16),
+(77, 1, 16),
+(78, 1, 18);
 
 -- --------------------------------------------------------
 
@@ -145,6 +152,16 @@ CREATE TABLE `payment` (
   `customer_id` int(10) NOT NULL,
   `total_pay` int(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `payment`
+--
+
+INSERT INTO `payment` (`payment_id`, `rental_id`, `customer_id`, `total_pay`) VALUES
+(4, 51, 40, 28),
+(5, 52, 40, 60),
+(6, 53, 41, 50),
+(7, 54, 41, 20);
 
 -- --------------------------------------------------------
 
@@ -167,7 +184,11 @@ CREATE TABLE `rental` (
 
 INSERT INTO `rental` (`rental_id`, `customer_id`, `inventory_id`, `rental_date`, `return_date`, `amount`) VALUES
 (45, 40, 64, '2022-11-21', '2022-11-26', 5),
-(46, 40, 64, '2022-11-21', '2022-11-26', 1);
+(46, 40, 64, '2022-11-21', '2022-11-26', 1),
+(51, 40, 71, '2022-11-23', '2022-12-07', 1),
+(52, 40, 72, '2022-11-23', '2022-11-29', 2),
+(53, 41, 72, '2022-11-23', '2022-12-03', 1),
+(54, 41, 73, '2022-11-23', '2022-11-25', 1);
 
 -- --------------------------------------------------------
 
@@ -273,19 +294,19 @@ ALTER TABLE `film_genre`
 -- AUTO_INCREMENT for table `inventory`
 --
 ALTER TABLE `inventory`
-  MODIFY `inventory_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
+  MODIFY `inventory_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
 
 --
 -- AUTO_INCREMENT for table `payment`
 --
 ALTER TABLE `payment`
-  MODIFY `payment_id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `payment_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `rental`
 --
 ALTER TABLE `rental`
-  MODIFY `rental_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `rental_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
 -- AUTO_INCREMENT for table `user`

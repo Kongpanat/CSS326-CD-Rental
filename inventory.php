@@ -101,9 +101,11 @@ $user_id = $_SESSION['user_id'];
                                             </tr>
                                             <!--Do php in tr-->
                                             <?php
-                                            $select = mysqli_query($mysqli, "SELECT * FROM film,rental WHERE rental.customer_id='$user_id' AND film.inventory_id=rental.inventory_id") or die('query faied');
-
-                                            while ($row = $select->fetch_array()) {
+											//select title(film),rental date(rental),return date(rental), amount(rental), rental_rate(film), total_pay(payment)
+                                            $select = mysqli_query($mysqli, "SELECT * FROM film,rental,payment WHERE rental.customer_id='$user_id'
+											AND payment.customer_id='$user_id' AND payment.rental_id=rental.rental_id AND film.inventory_id=rental.inventory_id ORDER BY rental.return_date") or die('query failed');
+											
+											while ($row = $select->fetch_array()) {
                                             ?>
                                                 <tr>
                                                     <td><?= $row['title'] ?></td>
@@ -111,15 +113,16 @@ $user_id = $_SESSION['user_id'];
                                                     <td><?= $row['return_date'] ?></td>
                                                     <td><?= $row['amount'] ?></td>
                                                     <td><?= $row['rental_rate'] ?> / days</td>
-                                                    <td><?= $row['replacement_cost']?></td>
+                                                    <td><?= $row['total_pay']?></td>
                                                     <td><a href='del_inventory.php?rental_id=<?= $row['rental_id'] ?>'>Remove</a></td>
                                                 </tr>
                                             <?php    }    ?>
                                         </table>
                                         <!--End Table-->
                                         <?php
-                                        $stmt = mysqli_query($mysqli,    "SELECT SUM(replacement_cost) AS value_sum FROM film,rental 
-											WHERE rental.customer_id='$user_id' AND film.inventory_id=rental.inventory_id");
+										//Total Cost
+                                        $stmt = mysqli_query($mysqli,    "SELECT SUM(total_pay) AS value_sum FROM payment 
+											WHERE customer_id='$user_id'");
                                         $row = $stmt->fetch_array();
                                         $sum = $row['value_sum'];
                                         echo '<div style="text-align: justify; text-align-last: right">Total Cost: $' . $sum. '</div>';?>
